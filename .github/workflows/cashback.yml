@@ -1,0 +1,19 @@
+name: Cashback Bot
+on:
+  schedule:
+    - cron: '0 7 * * *'
+    - cron: '0 15 * * *'
+  workflow_dispatch:
+
+jobs:
+  enviar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - run: pip install requests
+      - run: python cashback.py
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
